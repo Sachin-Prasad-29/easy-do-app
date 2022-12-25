@@ -2,8 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingPage from '@/views/LandingPage'
 import AccountPage from '@/views/AccountPage'
+import YourWork from '@/views/YourWork'
+import ProjectPage from '@/views/ProjectPage'
 import DashBoard from '@/views/DashBoard'
+import PeoplePage from '@/views/PeoplePage'
+import ProfilePage from '@/views/ProfilePage'
 import PageNotFound from '@/views/PageNotFound'
+
 
 Vue.use(VueRouter)
 
@@ -25,6 +30,22 @@ const routes = [
         },
     },
     {
+        path: '/your-work',
+        name: 'yourwork',
+        component: YourWork,
+        meta: {
+            auth: true,
+        },
+    },
+    {
+        path: '/projects',
+        name: 'projects',
+        component: ProjectPage,
+        meta: {
+            auth: true,
+        },
+    },
+    {
         path: '/dashboard',
         name: 'dashboard',
         component: DashBoard,
@@ -32,6 +53,23 @@ const routes = [
             auth: true,
         },
     },
+    {
+        path: '/people',
+        name: 'people',
+        component: PeoplePage,
+        meta: {
+            auth: true,
+        },
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: ProfilePage,
+        meta: {
+            auth: true,
+        },
+    },
+
     {
         path: '*',
         name: 'pageNotFound',
@@ -48,7 +86,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.auth && !localStorage.getItem('token')) {
         next('*')
     } else if (!to.meta.auth && localStorage.getItem('token')) {
-        next('/dashboard')
+        next('/your-work')
     } else {
         next()
     }

@@ -8,13 +8,13 @@ export default new Vuetify({
         dark: false,
         themes: {
             light: {
-                primary: '#03A9F4',
+                primary: '#448AFF',
                 success: '#0F9D58',
                 error: '#EF5350',
-                ct: '#757575',
+                ct: '#424242',
             },
             dark: {
-                primary: '#03A9F4',
+                primary: '#448AFF',
                 success: '#0F9D58',
                 error: '#EF5350',
                 ct: '#F5F5F5',

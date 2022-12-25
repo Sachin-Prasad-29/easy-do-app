@@ -1,9 +1,17 @@
 <template>
-    <div class="landingPage">landingPage</div>
+    <div class="landingPage">landingPage vc</div>
 </template>
 
 <script>
-export default {}
+import { mapMutations } from 'vuex'
+export default {
+    mounted() {
+        this.setCurrPage('')
+    },
+    methods: {
+        ...mapMutations(['setCurrPage']),
+    },
+}
 </script>
 
 <style></style>

@@ -127,7 +127,7 @@
                     <div class="content">
                         <h3>New here ?</h3>
                         <p>Enter your details and start journey with us</p>
-                        <v-btn class="ct--text px-8 p" @click="login = !login">Sign up</v-btn>
+                        <v-btn class="ct--text px-8" @click="login = !login">Sign up</v-btn>
                     </div>
                     <img src="@/assets/images/login-svg.svg" class="image" />
                 </div>
@@ -146,7 +146,7 @@
 
 <script>
 import { login, register /* validate*/ } from '@/services/auth.services'
-// import { mapActions, mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex'
 import BubbleBackground from '@/components/utils/BubbleBackground.vue'
 
 export default {
@@ -190,9 +190,12 @@ export default {
             return ''
         },
     },
+    mounted() {
+        this.setCurrPage('')
+    },
     methods: {
-        // ...mapActions(['getUserDetails']),
-        // ...mapMutations(['setIsLoading']),
+        ...mapActions(['getUserDetails']),
+        ...mapMutations(['setCurrPage']),
         async onLogin() {
             if (this.$refs.form1.validate()) {
                 // this.setIsLoading(true);
@@ -202,12 +205,10 @@ export default {
                 }
                 const response = await login(userDetails)
                 if (response.success) {
-                    
                     localStorage.setItem('token', response.token)
-                    // await this.getUserDetails()
+                    await this.getUserDetails()
                     this.$router.push('/dashboard')
                 } else {
-                   
                     console.log(response)
                 }
                 this.$refs.form1.reset()
@@ -216,20 +217,18 @@ export default {
         },
         async onRegister() {
             if (this.$refs.form2.validate()) {
-                this.register = true;
+                this.register = true
                 // this.setIsLoading(true);
                 const userDetails = {
                     email: this.signupEmail,
                     password: this.signupPassword,
                     name: this.name,
-                };
-                const response = await register(userDetails);
+                }
+                const response = await register(userDetails)
                 if (response.success) {
-                    
-                    this.dialog = true;
+                    this.dialog = true
                 } else {
-                    
-                    console.log(response);
+                    console.log(response)
                 }
                 // this.setIsLoading(false);
             }
