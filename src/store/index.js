@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getUserDetails } from '@/services/user.services'
+import { getUserSvc } from '@/services/user.services'
+import { getProjectsSvc } from '@/services/project.services'
 
 Vue.use(Vuex)
 
@@ -8,10 +9,12 @@ export default new Vuex.Store({
     state: {
         userDetails: null,
         currPage: '',
+        projects: [],
     },
     getters: {
         userDetails: (state) => state.userDetails,
         currPage: (state) => state.currPage,
+        projects: (state) => state.projects,
     },
     mutations: {
         setUserDetails: (state, userDetails) => {
@@ -20,11 +23,26 @@ export default new Vuex.Store({
         setCurrPage: (state, currPage) => {
             state.currPage = currPage
         },
+        setProjects: (state, projects) => {
+            state.projects = projects
+        },
     },
     actions: {
         async getUserDetails({ commit }) {
-            const userDetails = await getUserDetails()
-            commit('setUserDetails', userDetails)
+            try {
+                const userDetails = await getUserSvc()
+                commit('setUserDetails', userDetails)
+            } catch (error) {
+                console.error('Some Error Occured ->', error.message)
+            }
+        },
+        async getProjects({ commit }) {
+            try {
+                const response = await getProjectsSvc()
+                commit('setProjects', response.projects)
+            } catch (error) {
+                console.error('Some Error Occured ->', error.message)
+            }
         },
     },
     modules: {},

@@ -26,9 +26,5 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-* {
-    font-family: 'Rubik', sans-serif;
-    
-}
+
 </style>

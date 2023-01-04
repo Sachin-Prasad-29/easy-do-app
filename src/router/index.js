@@ -8,7 +8,8 @@ import DashBoard from '@/views/DashBoard'
 import PeoplePage from '@/views/PeoplePage'
 import ProfilePage from '@/views/ProfilePage'
 import PageNotFound from '@/views/PageNotFound'
-
+import ProjectBoard from '@/components/Projects/ProjectBoard'
+import AllProject from '@/components/Projects/AllProject'
 
 Vue.use(VueRouter)
 
@@ -37,14 +38,7 @@ const routes = [
             auth: true,
         },
     },
-    {
-        path: '/projects',
-        name: 'projects',
-        component: ProjectPage,
-        meta: {
-            auth: true,
-        },
-    },
+
     {
         path: '/dashboard',
         name: 'dashboard',
@@ -68,6 +62,35 @@ const routes = [
         meta: {
             auth: true,
         },
+    },
+    {
+        path: '/projects',
+        name: 'projectpage',
+        component: ProjectPage,
+        props: true,
+        meta: {
+            auth: true,
+        },
+        children: [
+            {
+                path: ':user',
+                name: 'allproject',
+                props: true,
+                component: AllProject,
+                meta: {
+                    auth: true,
+                },
+            },
+            {
+                path: ':user/:projectId',
+                name: 'projectboard',
+                props: true,
+                component: ProjectBoard,
+                meta: {
+                    auth: true,
+                },
+            },
+        ],
     },
 
     {

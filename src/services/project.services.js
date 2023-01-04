@@ -1,16 +1,16 @@
 import axios from 'axios'
 
-const getUserSvc = async () => {
-    const reqData = {
+const getProjectsSvc = async () => {
+    const payload = {
         method: 'get',
-        url: 'auth/profile',
+        url: '/project',
         headers: {
             Authorization: localStorage.getItem('token'),
         },
     }
-    // console.dir(reqData)
+    // console.dir(payload)
     try {
-        const response = await axios(reqData)
+        const response = await axios(payload)
         console.log(response.data)
         return response.data
     } catch (error) {
@@ -19,4 +19,4 @@ const getUserSvc = async () => {
     }
 }
 
-export { getUserSvc }
+export { getProjectsSvc }

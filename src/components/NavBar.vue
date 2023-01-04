@@ -1,12 +1,12 @@
 <template>
     <div class="navbar">
-        <v-app-bar dense elevation="1" sticky>
+        <v-app-bar dense elevation="2">
             <v-app-bar-nav-icon left class="menu-Icon" medium>
                 <v-icon> mdi-apps</v-icon>
             </v-app-bar-nav-icon>
             <v-toolbar-title class="toolbar-main" left>
                 <router-link to="/your-work" class="text-decoration-none">
-                    <v-btn elevation="0" class="button-main" 
+                    <v-btn large tile elevation="0" class="button-main"
                         ><v-img max-height="25" max-width="25" src="@/assets/images/app-logo.svg"></v-img
                         ><span class="font-weight-bold text-capitalize ml-2">Easy Do Tool</span></v-btn
                     >
@@ -14,28 +14,36 @@
             </v-toolbar-title>
             <v-toolbar-title left>
                 <router-link to="/your-work" class="text-decoration-none ml-3">
-                    <v-btn elevation="0" tile :class="page === 'yourwork' ? 'isActive' : 'notActive'">
+                    <v-btn tile large elevation="0" :class="page === 'yourwork' ? 'isActive' : 'notActive'">
                         <span class="text-capitalize">Your work</span>
                     </v-btn>
                 </router-link>
             </v-toolbar-title>
             <v-toolbar-title left>
-                <router-link to="/projects" class="text-decoration-none ml-2">
-                    <v-btn elevation="0" class="" tile :class="page === 'projects' ? 'isActive' : 'notActive'">
+                <router-link
+                    :to="{
+                        name: 'allproject',
+                        params: {
+                            user:'Sachin'
+                        },
+                    }"
+                    class="text-decoration-none ml-2"
+                >
+                    <v-btn tile large elevation="0" :class="page === 'projects' ? 'isActive' : 'notActive'">
                         <span class="text-capitalize">Projects</span>
                     </v-btn>
                 </router-link>
             </v-toolbar-title>
             <v-toolbar-title left>
                 <router-link to="/dashboard" class="text-decoration-none ml-2">
-                    <v-btn elevation="0" class="" tile :class="page === 'dashboard' ? 'isActive' : 'notActive'">
+                    <v-btn tile large elevation="0" :class="page === 'dashboard' ? 'isActive' : 'notActive'">
                         <span class="text-capitalize">Dashboard</span>
                     </v-btn>
                 </router-link>
             </v-toolbar-title>
             <v-toolbar-title left>
                 <router-link to="/people" class="text-decoration-none ml-2">
-                    <v-btn elevation="0" class="" tile :class="page === 'people' ? 'isActive' : 'notActive'">
+                    <v-btn tile large elevation="0" :class="page === 'people' ? 'isActive' : 'notActive'">
                         <span class="text-capitalize">People</span>
                     </v-btn>
                 </router-link>
@@ -122,6 +130,11 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
     props: ['page'],
+    data() {
+        return {
+            user: 'Sachin',
+        }
+    },
     computed: {
         ...mapGetters(['userDetails']),
     },
@@ -145,7 +158,7 @@ export default {
 .isActive {
     border-bottom: 3px solid rgb(139, 139, 240);
     font-weight: 600;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 .notActive {
     border-bottom: 3px solid rgb(247, 245, 245);
