@@ -8,7 +8,7 @@ import DashBoard from '@/views/DashBoard'
 import PeoplePage from '@/views/PeoplePage'
 import ProfilePage from '@/views/ProfilePage'
 import PageNotFound from '@/views/PageNotFound'
-import ProjectBoard from '@/components/Projects/ProjectBoard'
+import ProjectDashBoard from '@/components/Projects/ProjectDashBoard'
 import AllProject from '@/components/Projects/AllProject'
 
 Vue.use(VueRouter)
@@ -83,9 +83,9 @@ const routes = [
             },
             {
                 path: ':user/:projectId',
-                name: 'projectboard',
+                name: 'projectdashboard',
                 props: true,
-                component: ProjectBoard,
+                component: ProjectDashBoard,
                 meta: {
                     auth: true,
                 },

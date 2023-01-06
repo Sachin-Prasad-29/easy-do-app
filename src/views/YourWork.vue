@@ -65,7 +65,7 @@ export default {
     components: { ProjectCard, CreatedByMe, AssignedToMe, CompletedByMe, PendingByMe },
     data() {
         return {
-            activeTab: 'TWO',
+            activeTab: 'ONE',
             createdByMe: [],
             assignedToMe: [],
             completed: [],

@@ -2,7 +2,7 @@
     <v-col xl="2" lg="3" md="4" sm="6" xs="12" cols="12">
         <router-link
             :to="{
-                name: 'projectboard',
+                name: 'projectdashboard',
                 params: {
                     user: 'Sachin',
                     projectId: project._id,
