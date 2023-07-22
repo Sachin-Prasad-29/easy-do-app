@@ -28,7 +28,7 @@ export default {
         ...mapGetters(['userDetails']),
     },
     mounted(){
-        console.log(this.issue)
+        // console.log(this.issue)
     }
 }
 </script>

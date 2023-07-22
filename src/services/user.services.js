@@ -11,7 +11,7 @@ const getUserSvc = async () => {
     // console.dir(reqData)
     try {
         const response = await axios(reqData)
-        console.log(response.data)
+        // console.log(response.data)
         return response.data
     } catch (error) {
         console.log(error)

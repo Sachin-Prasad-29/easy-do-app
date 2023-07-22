@@ -16,46 +16,68 @@
             <v-divider></v-divider>
 
             <v-list dense>
-                <v-list-item link @click="toggle('BACKLOG')">
+                <v-list-item link @click="togglePlan = ! togglePlan">
                     <v-list-item-icon>
-                        <v-icon>mdi-menu</v-icon>
+                        <v-icon>{{togglePlan ?   'mdi-chevron-down' : 'mdi-chevron-right'}}</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
-                        <v-list-item-title>Backlog</v-list-item-title>
+                        <v-list-item-title>Planning</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link @click="toggle('BOARD')">
+                <v-card class="ml-10" elevation="0" v-show="togglePlan">
+                    <v-list-item link @click="toggle('BACKLOG')">
+                        <v-list-item-icon>
+                            <v-icon>mdi-land-rows-horizontal</v-icon>
+                        </v-list-item-icon>
+
+                        <v-list-item-content>
+                            <v-list-item-title>Backlog</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link @click="toggle('BOARD')">
+                        <v-list-item-icon>
+                            <v-icon>mdi-view-week-outline</v-icon>
+                        </v-list-item-icon>
+
+                        <v-list-item-content>
+                            <v-list-item-title>Board</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-card>
+                <v-list-item link  @click="toggleDev = !toggleDev">
                     <v-list-item-icon>
-                        <v-icon>mdi-menu</v-icon>
+                        <v-icon>{{toggleDev ?   'mdi-chevron-down' : 'mdi-chevron-right'}}</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
-                        <v-list-item-title>Board</v-list-item-title>
+                        <v-list-item-title>Development</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link @click="toggle('CODE')">
-                    <v-list-item-icon>
-                        <v-icon>mdi-menu</v-icon>
-                    </v-list-item-icon>
+                <v-card class="ml-10" elevation="0" v-show="toggleDev">
+                    <v-list-item link @click="toggle('CODE')">
+                        <v-list-item-icon>
+                            <v-icon>mdi-xml</v-icon>
+                        </v-list-item-icon>
 
-                    <v-list-item-content>
-                        <v-list-item-title>Code</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                        <v-list-item-content>
+                            <v-list-item-title>Code</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-card>
                 <v-list-item link @click="toggleSetting = !toggleSetting">
                     <v-list-item-icon>
-                        <v-icon>mdi-menu</v-icon>
+                        <v-icon>{{toggleSetting ?   'mdi-chevron-down' : 'mdi-chevron-right'}}</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-content>
                         <v-list-item-title>Project Setting</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-card class="ml-9" elevation="0" v-show="toggleSetting">
+                <v-card class="ml-10" elevation="0" v-show="toggleSetting">
                     <v-list-item link @click="toggle('DETAILS')">
                         <v-list-item-icon>
-                            <v-icon>mdi-menu</v-icon>
+                            <v-icon>mdi-cog</v-icon>
                         </v-list-item-icon>
 
                         <v-list-item-content>
@@ -64,7 +86,7 @@
                     </v-list-item>
                     <v-list-item link @click="toggle('ACCESS')">
                         <v-list-item-icon>
-                            <v-icon>mdi-menu</v-icon>
+                            <v-icon>mdi-account-group</v-icon>
                         </v-list-item-icon>
 
                         <v-list-item-content>
@@ -73,7 +95,7 @@
                     </v-list-item>
                     <v-list-item link @click="toggle('ISSUES')">
                         <v-list-item-icon>
-                            <v-icon>mdi-menu</v-icon>
+                            <v-icon>mdi-lead-pencil</v-icon>
                         </v-list-item-icon>
 
                         <v-list-item-content>
@@ -84,18 +106,17 @@
             </v-list>
         </v-navigation-drawer>
         <v-container>
-            <h1>Hi From Project Board</h1>
+            <div class="caption">Project / {{ projectDetail.name }}</div>
             <BacklogComp
                 v-show="toggleTab === 'BACKLOG'"
                 :projectId="projectDetail._id"
                 :backlogId="projectDetail.backlogId"
             />
-            <BoardComp v-show="toggleTab === 'BOARD'" />
+            <BoardComp v-show="toggleTab === 'BOARD'" :projectDetail="projectDetail" />
             <AccessComp v-show="toggleTab === 'ACCESS'" />
             <CodeComp v-show="toggleTab === 'CODE'" />
             <DetailsComp v-show="toggleTab === 'DETAILS'" />
             <IssuesComp v-show="toggleTab === 'ISSUES'" />
-            {{ projectDetail.name }}
         </v-container>
     </div>
 </template>
@@ -117,8 +138,10 @@ export default {
         return {
             projectDetail: {},
             drawer: true,
-            mini: true,
+            mini: false,
             toggleSetting: true,
+            toggleDev:true,
+            togglePlan:true,
             toggleTab: 'BOARD',
         }
     },
@@ -132,8 +155,8 @@ export default {
             this.projectDetail = response.project
         },
         toggle(tab) {
-            this.mini=true
-            console.log("Toogle ")
+            this.mini = true
+            console.log('Toogle ')
             this.toggleTab = tab
         },
     },
